@@ -30,6 +30,7 @@ import (
 	kubemarkcontroller "k8s.io/kubernetes/pkg/kubemark"
 
 	"github.com/golang/glog"
+	"k8s.io/autoscaler/cluster-autoscaler/cloudprovider/aug"
 )
 
 // CloudProviderBuilder builds a cloud provider from all the necessary parameters including the name of a cloud provider e.g. aws, gce
@@ -143,6 +144,13 @@ func (b CloudProviderBuilder) Build(discoveryOpts cloudprovider.NodeGroupDiscove
 		cloudProvider, err = kubemark.BuildKubemarkCloudProvider(kubemarkController, nodeGroupsFlag)
 		if err != nil {
 			glog.Fatalf("Failed to create Kubemark cloud provider: %v", err)
+		}
+	}
+
+	if b.cloudProviderFlag == "aug" {
+		cloudProvider, err = aug.BuildAugCloudProvider(discoveryOpts)
+		if err != nil {
+			glog.Fatalf("Failed to create Aug cloud provider: %v", err)
 		}
 	}
 

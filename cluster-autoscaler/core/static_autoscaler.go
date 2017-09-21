@@ -291,7 +291,7 @@ func (a *StaticAutoscaler) RunOnce(currentTime time.Time) errors.AutoscalerError
 			calculateUnneededOnly, a.lastScaleUpTime, a.lastScaleDownDeleteTime, a.lastScaleDownFailTime,
 			schedulablePodsPresent, scaleDown.nodeDeleteStatus.IsDeleteInProgress())
 
-		if !calculateUnneededOnly {
+		if true {
 			glog.V(4).Infof("Starting scale down")
 
 			// We want to delete unneeded Node Groups only if there was no recent scale up,
